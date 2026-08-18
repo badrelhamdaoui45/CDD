@@ -11,6 +11,26 @@
       gtag('config', 'AW-18195668548');
     </script>
 
+    <!-- Event snippet for Page view conversion page -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18195668548/4BOyCN2a-uMcEMS8r-RD',
+            'value': 1.0,
+            'currency': 'USD',
+            'event_callback': callback
+        });
+      }
+      return false;
+    }
+    </script>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -28,7 +48,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index-C1NDGzYs.js"></script>
+    <script type="module" crossorigin src="./assets/index-CuvOn5TF.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CZO52PHI.css">
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
