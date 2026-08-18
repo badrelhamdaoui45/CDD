@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, Sparkles, Sliders, Users, BookOpen, Layers } from 'lucide-react';
 import { siteData } from '../data/content';
+import { trackVinVerification } from '../utils/gtm';
 
 export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
   const [vinInput, setVinInput] = useState('');
@@ -9,6 +10,7 @@ export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
 
   const handleHeroSubmit = (e) => {
     e.preventDefault();
+    trackVinVerification('hero', vinInput || 'VF3MCYHZRKS123456');
     openVinModal(vinInput || 'VF3MCYHZRKS123456');
   };
 
@@ -64,7 +66,9 @@ export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
 
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 hover:from-blue-700 hover:to-sky-600 font-extrabold text-white text-base shadow-md transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shrink-0"
+                    id="btn-verify-vin-hero"
+                    data-gtm="verify-vin-hero"
+                    className="gtm-verify-vin-btn w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 hover:from-blue-700 hover:to-sky-600 font-extrabold text-white text-base shadow-md transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shrink-0"
                   >
                     <ShieldCheck className="w-5 h-5" />
                     <span>{t.hero.primaryCta}</span>
@@ -78,8 +82,11 @@ export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
                     <button
                       key={sample.vin}
                       type="button"
-                      onClick={() => openVinModal(sample.vin)}
-                      className="px-2.5 py-1 rounded bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-500 text-blue-700 font-mono font-semibold transition-colors shadow-sm"
+                      onClick={() => {
+                        trackVinVerification('hero_sample', sample.vin);
+                        openVinModal(sample.vin);
+                      }}
+                      className="gtm-verify-vin-sample px-2.5 py-1 rounded bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-500 text-blue-700 font-mono font-semibold transition-colors shadow-sm"
                     >
                       {sample.make} {sample.model.split(' ')[0]}
                     </button>
@@ -314,8 +321,13 @@ export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
             </div>
 
             <button
-              onClick={() => openVinModal()}
-              className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md transition-all text-center flex items-center justify-center gap-2"
+              id="btn-verify-vin-impact"
+              data-gtm="verify-vin-impact"
+              onClick={() => {
+                trackVinVerification('impact_calculator');
+                openVinModal();
+              }}
+              className="gtm-verify-vin-btn w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md transition-all text-center flex items-center justify-center gap-2"
             >
               <span>{lang === 'fr' ? `Vérifier ${sliderReports} VIN & Nourrir des Enfants` : `Check ${sliderReports} VIN & Feed Children`}</span>
               <ArrowRight className="w-4 h-4" />
@@ -415,8 +427,13 @@ export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
 
           <div className="pt-2">
             <button
-              onClick={() => openVinModal()}
-              className="px-10 py-4 rounded-xl bg-white text-blue-800 hover:bg-slate-100 font-extrabold text-lg shadow-xl transition-all transform hover:scale-105 inline-flex items-center gap-3"
+              id="btn-verify-vin-bottom"
+              data-gtm="verify-vin-bottom"
+              onClick={() => {
+                trackVinVerification('bottom_cta');
+                openVinModal();
+              }}
+              className="gtm-verify-vin-btn px-10 py-4 rounded-xl bg-white text-blue-800 hover:bg-slate-100 font-extrabold text-lg shadow-xl transition-all transform hover:scale-105 inline-flex items-center gap-3"
             >
               <ShieldCheck className="w-6 h-6 text-blue-600" />
               <span>{t.bottomCta.button}</span>

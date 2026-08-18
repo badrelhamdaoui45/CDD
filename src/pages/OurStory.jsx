@@ -1,6 +1,7 @@
 import React from 'react';
 import { BookOpen, ShieldCheck, Heart, Users, Award, CheckCircle2, ArrowRight, Building2, Globe2 } from 'lucide-react';
 import { siteData } from '../data/content';
+import { trackVinVerification } from '../utils/gtm';
 
 export default function OurStory({ lang = 'fr', openVinModal }) {
   const info = siteData.associationInfo;
@@ -95,8 +96,13 @@ export default function OurStory({ lang = 'fr', openVinModal }) {
             </div>
 
             <button
-              onClick={() => openVinModal()}
-              className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+              id="btn-verify-vin-story"
+              data-gtm="verify-vin-story"
+              onClick={() => {
+                trackVinVerification('our_story');
+                openVinModal();
+              }}
+              className="gtm-verify-vin-btn w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2"
             >
               <ShieldCheck className="w-4 h-4" />
               <span>{lang === 'fr' ? "Commander un Rapport & Participer" : "Order Report & Participate"}</span>

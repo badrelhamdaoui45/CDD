@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, ShieldCheck, CheckCircle2, AlertTriangle, Heart, Award, FileText, ArrowRight, Download, Car, Calendar, Gauge, Lock } from 'lucide-react';
 import { siteData } from '../data/content';
+import { trackVinVerification } from '../utils/gtm';
 
 export default function VinCheckerModal({ isOpen, onClose, initialVin = '', lang = 'fr' }) {
   const [vinInput, setVinInput] = useState(initialVin || 'VF3MCYHZRKS123456');
@@ -19,6 +20,7 @@ export default function VinCheckerModal({ isOpen, onClose, initialVin = '', lang
   if (!isOpen) return null;
 
   const handleSearch = (targetVin) => {
+    trackVinVerification('modal', targetVin);
     setIsGenerating(true);
     setShowCheckoutSuccess(false);
     
@@ -92,9 +94,11 @@ export default function VinCheckerModal({ isOpen, onClose, initialVin = '', lang
               />
             </div>
             <button
+              id="btn-verify-vin-modal"
+              data-gtm="verify-vin-modal"
               onClick={() => handleSearch(vinInput)}
               disabled={isGenerating}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 font-bold text-sm text-white shrink-0 shadow-md transition-all"
+              className="gtm-verify-vin-btn w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 font-bold text-sm text-white shrink-0 shadow-md transition-all"
             >
               {isGenerating ? (lang === 'fr' ? 'Analyse...' : 'Analyzing...') : (lang === 'fr' ? 'Vérifier' : 'Analyze VIN')}
             </button>
