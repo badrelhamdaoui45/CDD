@@ -11,6 +11,26 @@
       gtag('config', 'AW-18195668548');
     </script>
 
+    <!-- Event snippet for Page view conversion page -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18195668548/4BOyCN2a-uMcEMS8r-RD',
+            'value': 1.0,
+            'currency': 'USD',
+            'event_callback': callback
+        });
+      }
+      return false;
+    }
+    </script>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

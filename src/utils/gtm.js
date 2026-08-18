@@ -18,4 +18,8 @@ export const trackVinVerification = (location, vin = '') => {
     button_location: location,
     vin_value: vin || undefined,
   });
+
+  if (typeof window !== 'undefined' && typeof window.gtag_report_conversion === 'function') {
+    window.gtag_report_conversion();
+  }
 };
