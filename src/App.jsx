@@ -14,6 +14,12 @@ const PAGE_PATHS = {
   impact: '/our-impact',
   transparency: '/transparency',
   contact: '/contact',
+  'vin-check': '/vin-check',
+  'vin-lookup': '/vin-lookup',
+  'vin-decoder': '/vin-decoder',
+  'vehicle-history': '/vehicle-history',
+  'chassis-check': '/chassis-check',
+  'free-vin-check': '/free-vin-check',
 };
 
 const PATH_TO_PAGE = {
@@ -24,6 +30,12 @@ const PATH_TO_PAGE = {
   '/impact': 'impact',
   '/transparency': 'transparency',
   '/contact': 'contact',
+  '/vin-check': 'vin-check',
+  '/vin-lookup': 'vin-lookup',
+  '/vin-decoder': 'vin-decoder',
+  '/vehicle-history': 'vehicle-history',
+  '/chassis-check': 'chassis-check',
+  '/free-vin-check': 'free-vin-check',
 };
 
 const getPageFromUrl = () => {
@@ -84,9 +96,10 @@ export default function App() {
 
       {/* Main Page View Renderer */}
       <main className="flex-grow">
-        {activePage === 'home' && (
+        {(activePage === 'home' || ['vin-check', 'vin-lookup', 'vin-decoder', 'vehicle-history', 'chassis-check', 'free-vin-check'].includes(activePage)) && (
           <Home
             lang={lang}
+            landingPageId={activePage}
             openVinModal={openVinModal}
             setActivePage={setActivePage}
           />

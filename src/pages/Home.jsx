@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
-import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, Sparkles, Sliders, Users, BookOpen, Layers } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, Sparkles, Sliders, Users, BookOpen, Layers, Target } from 'lucide-react';
 import { siteData } from '../data/content';
+import { landingPagesConfig } from '../data/landingPages';
 import { trackVinVerification } from '../utils/gtm';
 
-export default function Home({ lang = 'en', openVinModal, setActivePage }) {
+export default function Home({ lang = 'en', landingPageId, openVinModal, setActivePage }) {
   const [vinInput, setVinInput] = useState('');
   const [sliderReports, setSliderReports] = useState(1);
   const t = siteData.translations[lang];
+  const lpConfig = landingPagesConfig[landingPageId];
+
+  useEffect(() => {
+    if (lpConfig) {
+      document.title = lpConfig.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', lpConfig.metaDescription);
+      }
+    } else {
+      document.title = 'Check Cars VIN Association | Check a VIN. Feed a Child.';
+    }
+  }, [lpConfig]);
 
   const handleHeroSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +34,7 @@ export default function Home({ lang = 'en', openVinModal, setActivePage }) {
   return (
     <div className="space-y-24 pb-20 bg-slate-50">
       
-      {/* HERO SECTION WITH USER UPLOADED IMAGE */}
+      {/* HERO SECTION WITH DYNAMIC GOOGLE ADS LANDING PAGE ADAPTATION */}
       <section className="relative overflow-hidden pt-10 lg:pt-16 pb-16 bg-radial-blue bg-white border-b border-slate-200">
         {/* Ambient Glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 blur-[140px] rounded-full pointer-events-none" />
@@ -31,22 +45,34 @@ export default function Home({ lang = 'en', openVinModal, setActivePage }) {
             {/* Left Col: Hero Copy & Form */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               
-              {/* Registered Association Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 shadow-sm">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-                <span className="text-xs font-extrabold tracking-wide text-blue-700 uppercase">
-                  {lang === 'fr' ? "ASSOCIATION FRANÇAISE LOI 1901 • RNA W2B2001993" : "FRENCH NON-PROFIT ASSOCIATION • RNA W2B2001993"}
-                </span>
+              {/* Registered Association Pill & Landing Badge */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 shadow-sm">
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+                  <span className="text-xs font-extrabold tracking-wide text-blue-700 uppercase">
+                    {lpConfig ? lpConfig.badge : (lang === 'fr' ? "ASSOCIATION FRANÇAISE LOI 1901 • RNA W2B2001993" : "FRENCH NON-PROFIT ASSOCIATION • RNA W2B2001993")}
+                  </span>
+                </div>
+                {lpConfig && (
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold uppercase shadow-2xs">
+                    <Target className="w-3.5 h-3.5 text-amber-600" />
+                    <span>INTENT: {lpConfig.searchIntent}</span>
+                  </div>
+                )}
               </div>
 
               {/* Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                {t.hero.headline.split('.')[0]}. <span className="text-gradient-blue">{t.hero.headline.split('.')[1]}</span>
+                {lpConfig ? (
+                  <>{lpConfig.headline}. <span className="text-gradient-blue">{lpConfig.headlineAccent}</span></>
+                ) : (
+                  <>{t.hero.headline.split('.')[0]}. <span className="text-gradient-blue">{t.hero.headline.split('.')[1]}</span></>
+                )}
               </h1>
 
               {/* Subheadline */}
               <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal">
-                {t.hero.subheadline}
+                {lpConfig ? lpConfig.subheadline : t.hero.subheadline}
               </p>
 
               {/* Interactive VIN Form */}
@@ -59,7 +85,7 @@ export default function Home({ lang = 'en', openVinModal, setActivePage }) {
                       maxLength={17}
                       value={vinInput}
                       onChange={(e) => setVinInput(e.target.value.toUpperCase())}
-                      placeholder={t.hero.placeholderVin}
+                      placeholder={lpConfig ? lpConfig.placeholderVin : t.hero.placeholderVin}
                       className="w-full pl-12 pr-4 py-3.5 bg-slate-50 rounded-xl text-slate-900 font-mono text-sm sm:text-base placeholder-slate-400 uppercase focus:outline-none focus:ring-2 focus:ring-blue-600 tracking-wider"
                     />
                   </div>
@@ -68,30 +94,41 @@ export default function Home({ lang = 'en', openVinModal, setActivePage }) {
                     type="submit"
                     id="btn-verify-vin-hero"
                     data-gtm="verify-vin-hero"
-                    className="gtm-verify-vin-btn w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 hover:from-blue-700 hover:to-sky-600 font-extrabold text-white text-base shadow-md transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shrink-0"
+                    className="gtm-verify-vin-btn w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 hover:from-blue-700 hover:to-sky-600 font-extrabold text-white text-base shadow-md transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                   >
                     <ShieldCheck className="w-5 h-5" />
-                    <span>{t.hero.primaryCta}</span>
+                    <span>{lpConfig ? lpConfig.primaryCta : t.hero.primaryCta}</span>
                   </button>
                 </div>
 
-                {/* Sample VIN Triggers */}
-                <div className="mt-3 flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-500 flex-wrap">
-                  <span className="font-semibold text-slate-700">{t.hero.trySample}</span>
-                  {siteData.sampleVins.slice(0, 3).map(sample => (
-                    <button
-                      key={sample.vin}
-                      type="button"
-                      onClick={() => {
-                        trackVinVerification('hero_sample', sample.vin);
-                        openVinModal(sample.vin);
-                      }}
-                      className="gtm-verify-vin-sample px-2.5 py-1 rounded bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-500 text-blue-700 font-mono font-semibold transition-colors shadow-sm"
-                    >
-                      {sample.make} {sample.model.split(' ')[0]}
-                    </button>
-                  ))}
-                </div>
+                {/* Target Keywords / Sample VIN Triggers */}
+                {lpConfig ? (
+                  <div className="mt-3 flex items-center justify-center lg:justify-start gap-1.5 text-xs text-slate-600 flex-wrap">
+                    <span className="font-semibold text-slate-700">Verified Features:</span>
+                    {lpConfig.keywordTags.map(tag => (
+                      <span key={tag} className="px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-semibold border border-blue-200 text-[11px] shadow-2xs">
+                        ✓ {tag}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-3 flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-500 flex-wrap">
+                    <span className="font-semibold text-slate-700">{t.hero.trySample}</span>
+                    {siteData.sampleVins.slice(0, 3).map(sample => (
+                      <button
+                        key={sample.vin}
+                        type="button"
+                        onClick={() => {
+                          trackVinVerification('hero_sample', sample.vin);
+                          openVinModal(sample.vin);
+                        }}
+                        className="gtm-verify-vin-sample px-2.5 py-1 rounded bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-500 text-blue-700 font-mono font-semibold transition-colors shadow-sm"
+                      >
+                        {sample.make} {sample.model.split(' ')[0]}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </form>
 
               {/* Trust Line & CTAs */}
