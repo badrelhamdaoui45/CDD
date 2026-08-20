@@ -3,7 +3,7 @@ import { BookOpen, ShieldCheck, Heart, Users, Award, CheckCircle2, ArrowRight, B
 import { siteData } from '../data/content';
 import { trackVinVerification } from '../utils/gtm';
 
-export default function OurStory({ lang = 'fr', openVinModal }) {
+export default function OurStory({ lang = 'en', openVinModal }) {
   const info = siteData.associationInfo;
 
   return (

@@ -26,13 +26,14 @@ export default function Footer({ setActivePage, lang }) {
           </div>
           
           <div className="flex items-center gap-3">
-            <button 
-              onClick={() => { setActivePage('transparency'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            <a 
+              href="/transparency"
+              onClick={(e) => { e.preventDefault(); setActivePage('transparency'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 transition-colors shadow-sm"
             >
               <FileText className="w-4 h-4" />
               <span>{lang === 'fr' ? "Voir Rapports Financiers" : "View Financial Audits"}</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -63,29 +64,29 @@ export default function Footer({ setActivePage, lang }) {
           </h5>
           <ul className="space-y-2 text-xs font-medium">
             <li>
-              <button onClick={() => { setActivePage('home'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
+              <a href="/" onClick={(e) => { e.preventDefault(); setActivePage('home'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
                 {lang === 'fr' ? "Accueil & Vérification VIN" : "Home & VIN Lookup"}
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => { setActivePage('story'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
+              <a href="/our-story" onClick={(e) => { e.preventDefault(); setActivePage('story'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
                 {lang === 'fr' ? "Notre Histoire" : "Our Story"}
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => { setActivePage('impact'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
+              <a href="/our-impact" onClick={(e) => { e.preventDefault(); setActivePage('impact'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
                 {lang === 'fr' ? "Notre Impact en Afrique" : "Our Impact in Africa"}
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => { setActivePage('transparency'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
+              <a href="/transparency" onClick={(e) => { e.preventDefault(); setActivePage('transparency'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
                 {lang === 'fr' ? "Transparence & Finance" : "Financial Transparency"}
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => { setActivePage('contact'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
+              <a href="/contact" onClick={(e) => { e.preventDefault(); setActivePage('contact'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-blue-400 transition-colors">
                 {lang === 'fr' ? "Contact & Support" : "Contact & Support"}
-              </button>
+              </a>
             </li>
           </ul>
         </div>

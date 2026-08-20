@@ -3,7 +3,7 @@ import { X, ShieldCheck, CheckCircle2, AlertTriangle, Heart, Award, FileText, Ar
 import { siteData } from '../data/content';
 import { trackVinVerification } from '../utils/gtm';
 
-export default function VinCheckerModal({ isOpen, onClose, initialVin = '', lang = 'fr' }) {
+export default function VinCheckerModal({ isOpen, onClose, initialVin = '', lang = 'en' }) {
   const [vinInput, setVinInput] = useState(initialVin || 'VF3MCYHZRKS123456');
   const [activeTab, setActiveTab] = useState('overview');
   const [isGenerating, setIsGenerating] = useState(false);

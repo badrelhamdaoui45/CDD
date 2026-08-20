@@ -2,7 +2,7 @@ import React from 'react';
 import { Heart, Globe, Award, Users, CheckCircle2, ArrowRight, MapPin, Utensils } from 'lucide-react';
 import { siteData } from '../data/content';
 
-export default function OurImpact({ lang = 'fr', openVinModal }) {
+export default function OurImpact({ lang = 'en', openVinModal }) {
   const stats = siteData.impactStats;
   const regions = siteData.partnerRegions;
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import VinCheckerModal from './components/VinCheckerModal';
@@ -8,11 +8,58 @@ import OurImpact from './pages/OurImpact';
 import Transparency from './pages/Transparency';
 import Contact from './pages/Contact';
 
+const PAGE_PATHS = {
+  home: '/',
+  story: '/our-story',
+  impact: '/our-impact',
+  transparency: '/transparency',
+  contact: '/contact',
+};
+
+const PATH_TO_PAGE = {
+  '/': 'home',
+  '/our-story': 'story',
+  '/story': 'story',
+  '/our-impact': 'impact',
+  '/impact': 'impact',
+  '/transparency': 'transparency',
+  '/contact': 'contact',
+};
+
+const getPageFromUrl = () => {
+  const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  if (PATH_TO_PAGE[path]) return PATH_TO_PAGE[path];
+
+  const hash = window.location.hash.toLowerCase().replace('#', '');
+  if (hash && PATH_TO_PAGE['/' + hash]) return PATH_TO_PAGE['/' + hash];
+
+  return 'home';
+};
+
 export default function App() {
-  const [activePage, setActivePage] = useState('home');
-  const [lang, setLang] = useState('fr'); // Default French language (Association in France)
+  const [activePage, setActivePageState] = useState(getPageFromUrl);
+  const [lang, setLang] = useState('en'); // Default English language
   const [isVinModalOpen, setIsVinModalOpen] = useState(false);
   const [selectedVin, setSelectedVin] = useState('');
+
+  const setActivePage = (page, pushHistory = true) => {
+    setActivePageState(page);
+    if (pushHistory) {
+      const targetPath = PAGE_PATHS[page] || '/';
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ page }, '', targetPath);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActivePageState(getPageFromUrl());
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const openVinModal = (vin = '') => {
     setSelectedVin(vin);

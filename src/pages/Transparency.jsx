@@ -2,7 +2,7 @@ import React from 'react';
 import { Award, FileText, CheckCircle2, ShieldCheck, Download, PieChart, Layers, HelpCircle } from 'lucide-react';
 import { siteData } from '../data/content';
 
-export default function Transparency({ lang = 'fr', openVinModal }) {
+export default function Transparency({ lang = 'en', openVinModal }) {
   const fin = siteData.financialBreakdown;
   const info = siteData.associationInfo;
 

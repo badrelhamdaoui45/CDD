@@ -3,7 +3,7 @@ import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, 
 import { siteData } from '../data/content';
 import { trackVinVerification } from '../utils/gtm';
 
-export default function Home({ lang = 'fr', openVinModal, setActivePage }) {
+export default function Home({ lang = 'en', openVinModal, setActivePage }) {
   const [vinInput, setVinInput] = useState('');
   const [sliderReports, setSliderReports] = useState(1);
   const t = siteData.translations[lang];

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="url(#bgGradient)"/>
+  <!-- Shield outline inside -->
+  <path d="M256 80L130 132V236C130 320 184 398 256 424C328 398 382 320 382 236V132L256 80Z" fill="white"/>
+  <!-- Checkmark -->
+  <path d="M222 284L178 240L156 262L222 328L348 202L326 180L222 284Z" fill="#2563EB"/>
+  <!-- Small Heart Icon Badge at top right of shield -->
+  <path d="M340 120C325 120 312 130 306 142C300 130 287 120 272 120C250 120 234 138 234 160C234 190 306 230 306 230C306 230 378 190 378 160C378 138 362 120 340 120Z" fill="#EF4444" opacity="0.9"/>
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+</svg>

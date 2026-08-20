@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, HelpCircle, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { siteData } from '../data/content';
 
-export default function Contact({ lang = 'fr' }) {
+export default function Contact({ lang = 'en' }) {
   const info = siteData.associationInfo;
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
