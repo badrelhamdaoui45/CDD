@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, Sparkles, Sliders, Users, BookOpen, Layers, Target } from 'lucide-react';
+import { ShieldCheck, Heart, ArrowRight, CheckCircle2, Search, Zap, Eye, Award, Sparkles, Sliders, Users, BookOpen, Layers } from 'lucide-react';
 import { siteData } from '../data/content';
 import { landingPagesConfig } from '../data/landingPages';
 import { trackVinVerification } from '../utils/gtm';
@@ -53,12 +53,6 @@ export default function Home({ lang = 'en', landingPageId, openVinModal, setActi
                     {lpConfig ? lpConfig.badge : (lang === 'fr' ? "ASSOCIATION FRANÇAISE LOI 1901 • RNA W2B2001993" : "FRENCH NON-PROFIT ASSOCIATION • RNA W2B2001993")}
                   </span>
                 </div>
-                {lpConfig && (
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold uppercase shadow-2xs">
-                    <Target className="w-3.5 h-3.5 text-amber-600" />
-                    <span>INTENT: {lpConfig.searchIntent}</span>
-                  </div>
-                )}
               </div>
 
               {/* Headline */}
